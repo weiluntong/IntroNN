@@ -1,0 +1,7 @@
+README.rst
+setup.py
+intronn/__init__.py
+intronn.egg-info/PKG-INFO
+intronn.egg-info/SOURCES.txt
+intronn.egg-info/dependency_links.txt
+intronn.egg-info/top_level.txt
