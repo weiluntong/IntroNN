@@ -2,7 +2,7 @@
 name = "IntroNN"
 version = "0.1.0"
 description = ""
-authors = ["Weilun Tong <wtong@c-lockinc.com>"]
+authors = ["Weilun Tong <weiluntong.inbox@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
