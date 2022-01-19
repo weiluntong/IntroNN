@@ -1,6 +1,7 @@
 import torch
 from torch import nn, optim
 from torch.nn import functional as F
+import numpy as np
 
 
 class Net(nn.Module):
@@ -26,17 +27,32 @@ def main():
 
     optimizer = optim.Adam(net.parameters(), lr=0.001)
 
+    #set array used for random permutation
+    perm = np.arange(trainset[0].shape[0])
+
     EPOCHS = 10000
 
+    #network results at the beginning
+    initial = net(trainset[0])
+
     for _ in range(EPOCHS):
-        net.zero_grad()
+        optimizer.zero_grad()
         output = net(trainset[0])
         loss = F.mse_loss(output, trainset[1])
         loss.backward()
         optimizer.step()
-        print(loss)
+        if _ % 1000 == 0:
+            print(loss.item())
 
-    print(net(trainset[0]), trainset[1])
+        #Randomly permute the training set - reassign based on random indexing
+        np.random.shuffle(perm)
+        trainset[0][np.arange(perm.shape[0])] = trainset[0][perm] 
+        trainset[1][np.arange(perm.shape[0])] = trainset[1][perm]
+        
+        
+    print(f"Initial predctions from network: {initial}")
+    print(f"Final predictions from network: {net(trainset[0])}")
+    print(f"Actual labels: {trainset[1]}")
 
 
 if __name__ == "__main__":
